@@ -37,3 +37,4 @@ target/
 .qoder
 .gemini/
 .geminiignore
+.agents
