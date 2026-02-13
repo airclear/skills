@@ -1,1 +1,39 @@
+# OS Files
+.DS_Store
+Thumbs.db
+*.swp
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Logs and Databases
+*.log
+*.sqlite
+
+# Dependencies
+node_modules/
+bower_components/
+jspm_packages/
+venv/
+.venv/
+env/
+.env
+.env.*
+
+# Build and Output
+dist/
+build/
+out/
+target/
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Tools and Extensions
 .qoder
+.gemini/
+.geminiignore
