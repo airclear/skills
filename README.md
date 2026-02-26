@@ -16,6 +16,18 @@ skills/
 └── dist/                # 构建输出目录
 ```
 
+## 📚 Skills 索引
+
+| Skill 名称 | 分类 | 简介 |
+| :--- | :--- | :--- |
+| `bmad-brainstorming-coach` | Creative | 引导创新工作坊、头脑风暴会议和创意激发的 BMad 专家代理。 |
+| `conductor-setup` | Dev | 初始化项目 Conductor 环境，建立产品定义与技术栈标准。 |
+| `conductor-newtrack` | Dev | 开启新功能或修复任务 (Track)，引导规格定义与任务规划。 |
+| `conductor-implement` | Dev | 执行 Track 计划中的任务，确保代码符合 TDD 与项目规范。 |
+| `conductor-status` | Dev | 提供项目进度全景视图，展示所有 Track 的活跃状态与后续步骤。 |
+| `conductor-review` | Dev | 担任首席架构师角色，对代码与实现方案进行深度审查。 |
+| `conductor-revert` | Dev | 智能撤销 Track/Phase/Task，并同步更新 Conductor 计划与文档。 |
+
 ## 🚀 技能分类
 
 - **Development & Technical** - 开发与技术类技能
