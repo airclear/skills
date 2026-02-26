@@ -1,0 +1,150 @@
+{
+  "version": "1.0",
+  "timestamp": "2026-02-24T09:52:01",
+  "last_updated": "2026-02-24T09:52:01",
+  "project": {
+    "name": "SefWorks Skills - AI Agent Skills 库",
+    "root": "/Users/airclear/works/projects/sefworks/skills"
+  },
+  "scan_summary": {
+    "total_files": 78,
+    "scanned_files": 78,
+    "coverage_percent": 100,
+    "truncated": false
+  },
+  "modules": [
+    {
+      "name": "conductor-setup",
+      "path": "skills/conductor-setup",
+      "description": "scaffolds 项目并设置 Conductor 环境，用于上下文驱动开发",
+      "entry_point": "SKILL.md",
+      "claude_md": "skills/conductor-setup/CLAUDE.md",
+      "interfaces": [],
+      "tests_exist": false,
+      "config_files": [],
+      "reference_files": [
+        "references/resolution-protocol.md",
+        "references/project-discovery.md",
+        "references/product-setup.md",
+        "references/configuration.md",
+        "references/track-generation.md"
+      ],
+      "assets": [
+        "assets/templates/workflow.md",
+        "assets/templates/code_styleguides/*"
+      ],
+      "coverage": 100,
+      "gaps": []
+    },
+    {
+      "name": "conductor-newtrack",
+      "path": "skills/conductor-newtrack",
+      "description": "启动新的工作单元 (Track)，用于交互式规格构建和实施规划",
+      "entry_point": "SKILL.md",
+      "claude_md": "skills/conductor-newtrack/CLAUDE.md",
+      "interfaces": [],
+      "tests_exist": false,
+      "config_files": [],
+      "reference_files": [
+        "references/resolution-protocol.md",
+        "references/track-planning.md"
+      ],
+      "coverage": 100,
+      "gaps": []
+    },
+    {
+      "name": "conductor-implement",
+      "path": "skills/conductor-implement",
+      "description": "执行 Track 计划中定义的任务，是 Conductor 框架的引擎",
+      "entry_point": "SKILL.md",
+      "claude_md": "skills/conductor-implement/CLAUDE.md",
+      "interfaces": [],
+      "tests_exist": false,
+      "config_files": [],
+      "reference_files": [
+        "references/resolution-protocol.md",
+        "references/implementation-protocol.md",
+        "references/synchronization.md"
+      ],
+      "coverage": 100,
+      "gaps": []
+    },
+    {
+      "name": "conductor-status",
+      "path": "skills/conductor-status",
+      "description": "提供 Conductor 项目的综合状态概览",
+      "entry_point": "SKILL.md",
+      "claude_md": "skills/conductor-status/CLAUDE.md",
+      "interfaces": [],
+      "tests_exist": false,
+      "config_files": [],
+      "reference_files": [
+        "references/resolution-protocol.md",
+        "references/status-protocol.md"
+      ],
+      "coverage": 100,
+      "gaps": []
+    },
+    {
+      "name": "conductor-revert",
+      "path": "skills/conductor-revert",
+      "description": "通过分析 git 历史回滚工作单元并同步 Conductor 计划",
+      "entry_point": "SKILL.md",
+      "claude_md": "skills/conductor-revert/CLAUDE.md",
+      "interfaces": [],
+      "tests_exist": false,
+      "config_files": [],
+      "reference_files": [
+        "references/resolution-protocol.md",
+        "references/revert-protocol.md"
+      ],
+      "coverage": 100,
+      "gaps": []
+    },
+    {
+      "name": "conductor-review",
+      "path": "skills/conductor-review",
+      "description": "充当首席软件工程师，根据项目标准审查已完成的工作",
+      "entry_point": "SKILL.md",
+      "claude_md": "skills/conductor-review/CLAUDE.md",
+      "interfaces": [],
+      "tests_exist": false,
+      "config_files": [],
+      "reference_files": [
+        "references/resolution-protocol.md",
+        "references/review-protocol.md"
+      ],
+      "coverage": 100,
+      "gaps": []
+    }
+  ],
+  "ignore_rules": {
+    "source": ".gitignore",
+    "patterns": [
+      ".DS_Store",
+      "Thumbs.db",
+      "*.swp",
+      ".vscode/",
+      ".idea/",
+      "*.log",
+      "*.sqlite",
+      "node_modules/",
+      ".env",
+      "dist/",
+      "build/",
+      ".qoder",
+      ".gemini/",
+      ".agents/"
+    ]
+  },
+  "ignored_stats": {
+    "top_ignored_dirs": [
+      { "path": ".git/", "reason": "Git 版本控制目录" },
+      { "path": "dist/", "reason": "构建输出目录" },
+      { "path": "references/conductor-release/", "reason": "参考资料目录" }
+    ]
+  },
+  "gap_list": [],
+  "next_scan_priority": [],
+  "generation_complete": true
+}
