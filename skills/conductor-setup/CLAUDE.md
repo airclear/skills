@@ -42,11 +42,12 @@ description: Scaffolds the project and sets up the Conductor environment for Con
 
 ### 工作流程阶段
 
-1. **Project Discovery** - 判断项目是新建（Greenfield）还是现有（Brownfield）
-2. **Product Definition** - 协作创建 `product.md` 和 `product-guidelines.md`
-3. **Tech Stack** - 在 `tech-stack.md` 中定义技术基础
-4. **Configuration** - 选择代码风格指南和自定义 `workflow.md`
-5. **Track Generation** - 创建第一个工作单元（Track）的 `spec.md` 和 `plan.md`
+1. **Project Discovery** - 判断项目是新建（Greenfield）还是现有（Brownfield）。包含预初始化概览。
+2. **Product Definition** - 协作创建 `product.md`
+3. **Product Guidelines** - 协作创建 `product-guidelines.md`
+4. **Tech Stack** - 在 `tech-stack.md` 中定义技术基础
+5. **Configuration** - 选择代码风格指南和自定义 `workflow.md`
+6. **Track Generation** - 创建第一个工作单元（Track）的 `spec.md` 和 `plan.md`。包含阶段完成验证任务。
 
 ### 状态管理
 
@@ -120,6 +121,10 @@ A: `conductor/` 目录下包含 `product.md`, `tech-stack.md`, `workflow.md`, `p
 ---
 
 ## 变更记录 (Changelog)
+
+### 2026-03-02
+
+- **Update to 0.3.1** - 同步 Conductor 0.3.1 的变更，包括预初始化概览、改进的 Brownfield 检测、问题分批（batching）和阶段验证协议。
 
 ### 2026-02-24
 

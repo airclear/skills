@@ -109,6 +109,10 @@ A: 手动更新 `plan.md` 或 `tracks.md`，将相应任务或阶段标记为未
 
 ## 变更记录 (Changelog)
 
+### 2026-03-02
+
+- **Update to 0.3.1** - 同步 Conductor 0.3.1 的变更，包括对全 Track 撤回时创建 commit 的处理、Ghost commit 处理、及改进的选择菜单。
+
 ### 2026-02-24
 
 - **Initial Module Documentation** - 创建模块级 CLAUDE.md

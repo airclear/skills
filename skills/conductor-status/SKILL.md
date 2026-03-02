@@ -1,6 +1,8 @@
 ---
 name: conductor-status
 description: Provides a comprehensive status overview of the Conductor project. Use when the user wants to know the current progress, active tasks, next steps, or overall health of the project tracks and plans.
+metadata:
+  version: "0.3.1"
 ---
 
 # Conductor Status
@@ -17,7 +19,7 @@ This skill acts as a project dashboard. It aggregates information from the proje
 ## Workflow
 
 1.  **Setup Check:** Ensure all core Conductor context files exist.
-2.  **Registry Parsing:** Read the `tracks.md` file to find all active tracks.
+2.  **Registry Parsing:** Read the `tracks.md` file. **Support both standard (`- [ ] **Track:`) and legacy (`## [ ] Track:`) formats.**
 3.  **Plan Analysis:** Traverse the `plan.md` for each track to calculate completion percentages and identify active tasks.
 4.  **Summary Generation:** Synthesize the data into a readable report including metrics, active work, and next steps.
 
@@ -31,4 +33,5 @@ Refer to the following protocols for detailed procedural instructions:
 ## Mandatory Constraints
 
 - **Accurate Metrics:** Percentages MUST be based on actual task counts in the `plan.md` files.
+- **Legacy Support:** Correctly parse both the new and old track registry formats.
 - **Clear Identification:** Explicitly state which track, phase, and task is currently "In Progress".

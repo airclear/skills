@@ -1,6 +1,8 @@
 ---
 name: conductor-revert
 description: Reverts logical units of work (Tracks, Phases, or Tasks) by analyzing git history and synchronizing the Conductor plans. Use when a user wants to undo specific changes and ensure the project's documentation reflects the rolled-back state.
+metadata:
+  version: "0.3.1"
 ---
 
 # Conductor Revert
@@ -16,10 +18,10 @@ This skill is a Git-aware assistant. Unlike a standard `git revert`, it understa
 
 ## Workflow
 
-1.  **Target Identification:** Interactively help the user select which Track, Phase, or Task to revert.
-2.  **Git Analysis:** Map the logical Conductor item to specific Git commit SHAs (both implementation and plan-update commits).
-3.  **Plan Presentation:** Show the user exactly which commits will be reverted and in what order.
-4.  **Safe Execution:** Perform the reverts, handle conflicts, and manually synchronize the Conductor artifacts to match the reverted code state.
+1.  **Target Identification:** Interactively help the user select a Track, Phase, or Task to revert. **Present a unified hierarchical menu** with a max of 4 choices.
+2.  **Git Analysis (Reconciliation):** Map the logical Conductor item to specific Git commit SHAs. **Include the Track Creation commit** if an entire track is being reverted. **Handle "Ghost" commits** if SHAs are missing.
+3.  **Plan Presentation:** Show the user the exact commits to be reverted and the planned order.
+4.  **Safe Execution:** Perform the reverts in **reverse order**, handle conflicts, and manually synchronize the Conductor artifacts to match the reverted code state.
 
 ## Implementation Details
 

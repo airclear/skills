@@ -127,6 +127,10 @@ A: 标记阶段完成，附加详细的验证报告，便于审计和回滚。
 
 ## 变更记录 (Changelog)
 
+### 2026-03-02
+
+- **Update to 0.3.1** - 同步 Conductor 0.3.1 的变更，包括改进的 track 解析、选择确认、和增强的清理选项（Review/Archive/Delete/Skip）。
+
 ### 2026-02-24
 
 - **Initial Module Documentation** - 创建模块级 CLAUDE.md

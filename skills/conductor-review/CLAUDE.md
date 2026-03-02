@@ -129,6 +129,10 @@ A: 审查后提供自动修复选项，应用修复后更新 `plan.md` 记录审
 
 ## 变更记录 (Changelog)
 
+### 2026-03-02
+
+- **Update to 0.3.1** - 同步 Conductor 0.3.1 的变更，包括大范围变更的 Smart Chunking、改进的 Decision 阶段和 Plan 更新逻辑。
+
 ### 2026-02-24
 
 - **Initial Module Documentation** - 创建模块级 CLAUDE.md

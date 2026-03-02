@@ -122,6 +122,10 @@ A: 按创建时间排序，优先显示最近活动的 Track。
 
 ## 变更记录 (Changelog)
 
+### 2026-03-02
+
+- **Update to 0.3.1** - 同步 Conductor 0.3.1 的变更，包括对 Legacy Track Registry 格式的支持。
+
 ### 2026-02-24
 
 - **Initial Module Documentation** - 创建模块级 CLAUDE.md

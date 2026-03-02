@@ -113,6 +113,10 @@ A: 通过检查 `tracks.md` 中已注册的 Track ID，确保新 ID 不重复。
 
 ## 变更记录 (Changelog)
 
+### 2026-03-02
+
+- **Update to 0.3.1** - 同步 Conductor 0.3.1 的变更，包括问题分批（batching）和阶段完成 meta-tasks。
+
 ### 2026-02-24
 
 - **Initial Module Documentation** - 创建模块级 CLAUDE.md
