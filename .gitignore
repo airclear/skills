@@ -38,3 +38,8 @@ target/
 .gemini/
 .geminiignore
 .agents
+
+# BMAD
+
+_output
+_bmad_output
