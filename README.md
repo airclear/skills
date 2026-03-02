@@ -27,6 +27,7 @@ skills/
 | `conductor-status` | Dev | 提供项目进度全景视图，展示所有 Track 的活跃状态与后续步骤。 |
 | `conductor-review` | Dev | 担任首席架构师角色，对代码与实现方案进行深度审查。 |
 | `conductor-revert` | Dev | 智能撤销 Track/Phase/Task，并同步更新 Conductor 计划与文档。 |
+| `conductor-upgrade` | Dev | 自动化同步 Conductor 技能套件至最新参考版本（v0.3.1）。 |
 
 ## 🚀 技能分类
 
@@ -37,7 +38,7 @@ skills/
 
 ## 🛠️ 工具集成
 
-- **BMad-Method** - AI 驱动的开发工作流框架 (v6.0.3)
+- **BMad-Method** - AI 驱动的开发工作流框架 (v6.0.4)
 - **Git Worktree** - 多分支并行开发支持
 - **Claude Code** - 主要 AI 编程助手
 
