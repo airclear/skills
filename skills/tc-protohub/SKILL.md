@@ -25,7 +25,7 @@ If either of these is missing from the environment and has not been provided by 
 ### How to set:
 ```bash
 export PROTOHUB_API_KEY="your-api-key"
-export PROTOHUB_URL="https://ingwuat.tcredit.com/protohub"
+export PROTOHUB_URL="http://localhost:48080"
 ```
 
 ## Recommended Tool: publish.py
