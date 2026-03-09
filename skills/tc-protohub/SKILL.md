@@ -14,18 +14,21 @@ This skill allows AI Agents to manage prototypes on ProtoHub. It provides automa
 - **Prototype Discovery:** List existing prototypes or search by name to find IDs.
 - **Preview Management:** Retrieve public URLs for demonstration.
 
-## Recommended Tool: publish.py
-The project provides a dedicated Python script `skills/tc-protohub/scripts/publish.py` for all ProtoHub operations.
+## Mandatory Configuration
+Before performing any action, the AI Agent MUST verify that the following environment variables are set:
+- `PROTOHUB_API_KEY`: Required for authentication.
+- `PROTOHUB_URL`: Base URL of the ProtoHub server (default: `http://localhost:48080`).
 
-### Configuration
-The system supports multiple API Key types:
-1. **Database Key:** Generated in the "AI Agent Key" management menu (`ProtoAgentKeyDO`).
+**Strict Validation Rule:**
+If either of these is missing from the environment and has not been provided by the user in the current session, the Agent **MUST NOT** attempt to run the script and **MUST NOT** retry with placeholder values. Instead, immediately ask the user to provide the missing configuration.
 
-Set your API Key and Base URL as environment variables:
+### How to set:
 ```bash
 export PROTOHUB_API_KEY="your-api-key"
-export PROTOHUB_URL="http://localhost:48080" # 或者实际的后端地址
+export PROTOHUB_URL="https://ingwuat.tcredit.com/protohub"
 ```
+
+## Recommended Tool: publish.py
 
 ### Usage Examples
 
