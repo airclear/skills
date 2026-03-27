@@ -127,6 +127,15 @@ A: 标记阶段完成，附加详细的验证报告，便于审计和回滚。
 
 ## 变更记录 (Changelog)
 
+### 2026-03-27
+
+- **Update to 0.4.1** - 同步 Conductor 0.4.1 的变更：
+  - 改进 Track Selection：使用 ask_user 交互式选择目标 Track
+  - 新增 Synchronization Protocol：完成时同步 Product Guidelines（严格用户审批）
+  - Track Cleanup 选项增强：Review/Archive/Delete/Skip
+  - Status Markers 使用 `---` 分隔符解析 Tracks Registry
+  - implementation-protocol.md 和 synchronization.md 完全重写以对齐 implement.toml 0.4.1
+
 ### 2026-03-02
 
 - **Update to 0.3.1** - 同步 Conductor 0.3.1 的变更，包括改进的 track 解析、选择确认、和增强的清理选项（Review/Archive/Delete/Skip）。

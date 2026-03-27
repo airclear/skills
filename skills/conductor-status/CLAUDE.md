@@ -39,14 +39,15 @@ description: Provides a comprehensive status overview of the Conductor project..
 
 ### 工作流程
 
-1. **Setup Check** - 确保所有核心 Conductor 上下文文件存在
-2. **Registry Parsing** - 读取 `tracks.md` 文件查找所有活动 Tracks
-3. **Plan Analysis** - 遍历每个 Track 的 `plan.md` 计算完成百分比并识别活动任务
-4. **Summary Generation** - 将数据综合成可读报告，包括指标、活动工作和下一步
+1. **Setup Check (Section 1.1)** - 使用 Universal File Resolution Protocol 验证 Tracks Registry, Product Definition, Tech Stack, Workflow。如果任何文件缺失则停止
+2. **Read Project Plan (Section 2.1)** - 读取 Tracks Registry 和每个 track 的 Implementation Plan。支持 `- [ ] **Track:` (新) 和 `## [ ] Track:` (legacy) 两种格式
+3. **Parse and Summarize (Section 2.2)** - 解析内容，识别状态（COMPLETED, IN PROGRESS, PENDING）。统计总阶段数和任务数
+4. **Present Status Overview (Section 2.3)** - 生成结构化报告，包含 Current Date/Time, Project Status, Current Phase and Task, Next Action Needed, Blockers, Phases (total), Tasks (total), Progress
 
 ### 强制性约束
 
 - **Accurate Metrics** - 百分比必须基于 `plan.md` 文件中的实际任务计数
+- **Legacy Support** - 正确解析新格式 (`- [ ] **Track:`) 和旧格式 (`## [ ] Track:`) 的 Tracks Registry
 - **Clear Identification** - 明确说明哪个 Track、阶段和任务当前"进行中"
 
 ---
@@ -121,6 +122,14 @@ A: 按创建时间排序，优先显示最近活动的 Track。
 ---
 
 ## 变更记录 (Changelog)
+
+### 2026-03-27
+
+- **Update to 0.4.1** - 同步 Conductor 0.4.1 的变更：
+  - Setup Check 使用 Universal File Resolution Protocol 验证四个核心文件，缺失时立即停止
+  - Status Overview Protocol 细化为 2.1 Read Project Plan / 2.2 Parse and Summarize / 2.3 Present Status Overview 三个子步骤
+  - 报告格式增加 Phases (total)、Tasks (total)、Progress (tasks_completed/tasks_total, percentage) 字段
+  - status-protocol.md 完全重写以对齐 status.toml 0.4.1
 
 ### 2026-03-02
 

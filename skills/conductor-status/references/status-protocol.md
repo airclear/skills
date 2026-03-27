@@ -1,28 +1,52 @@
 # Status Overview Protocol
 
-## 1. Context Verification
-- Use the **Resolution Protocol** to verify the existence of:
-    - Tracks Registry
-    - Product Definition
-    - Tech Stack
-    - Workflow
+## 1. Setup Check
 
-## 2. Information Retrieval
-1.  **Read Tracks Registry:** Resolve and read `conductor/tracks.md`.
-2.  **Identify Tracks:** Parse the registry for all registered tracks (new format `- [ ] **Track:` or legacy `## [ ] Track:`).
-3.  **Read Individual Plans:** For each track, resolve and read its `plan.md` via the track's `index.md`.
+**PROTOCOL: Verify that the Conductor environment is properly set up.**
 
-## 3. Analysis and Summarization
-1.  **Parse Plans:**
-    - Count total phases and tasks across all tracks.
-    - Identify status of each task (Completed `[x]`, In Progress `[~]`, Pending `[ ]`).
-2.  **Generate Report:**
-    - **Timestamp:** Current date/time.
-    - **Overall Status:** On Track, Behind Schedule, or Blocked.
-    - **Active Work:** Identify the specific phase and task currently marked as `[~]`.
-    - **Next Step:** Identify the next `[ ]` task.
-    - **Metrics:** `tasks_completed / tasks_total (percentage%)`.
-    - **Blockers:** List any items explicitly marked as blockers.
+1.  **Verify Core Context:** Using the **Universal File Resolution Protocol**, resolve and verify the existence of:
+    -   **Tracks Registry**
+    -   **Product Definition**
+    -   **Tech Stack**
+    -   **Workflow**
 
-## 4. Presentation
-Present the summary to the user in a clear, structured Markdown format.
+2.  **Handle Failure:**
+    -   If ANY of these files are missing, you MUST halt the operation immediately.
+    -   Announce: "Conductor is not set up. Please run `/conductor:setup` to set up the environment."
+    -   Do NOT proceed to Status Overview Protocol.
+
+---
+
+## 2. Status Overview Protocol
+
+**PROTOCOL: Follow this sequence to provide a status overview.**
+
+### 2.1 Read Project Plan
+
+1.  **Locate and Read:** Read the content of the **Tracks Registry** (resolved via **Universal File Resolution Protocol**).
+2.  **Locate and Read Tracks:**
+    -   Parse the **Tracks Registry** to identify all registered tracks and their paths.
+        *   **Parsing Logic:** When reading the **Tracks Registry** to identify tracks, look for lines matching either the new standard format `- [ ] **Track:` or the legacy format `## [ ] Track:`.
+    -   For each track, resolve and read its **Implementation Plan** (using **Universal File Resolution Protocol** via the track's index file).
+
+### 2.2 Parse and Summarize Plan
+
+1.  **Parse Content:**
+    -   Identify major project phases/sections (e.g., top-level markdown headings).
+    -   Identify individual tasks and their current status (e.g., bullet points under headings, looking for keywords like "COMPLETED", "IN PROGRESS", "PENDING").
+2.  **Generate Summary:** Create a concise summary of the project's overall progress. This should include:
+    -   The total number of major phases.
+    -   The total number of tasks.
+    -   The number of tasks completed, in progress, and pending.
+
+### 2.3 Present Status Overview
+
+1.  **Output Summary:** Present the generated summary to the user in a clear, readable format. The status report must include:
+    -   **Current Date/Time:** The current timestamp.
+    -   **Project Status:** A high-level summary of progress (e.g., "On Track", "Behind Schedule", "Blocked").
+    -   **Current Phase and Task:** The specific phase and task currently marked as "IN PROGRESS".
+    -   **Next Action Needed:** The next task listed as "PENDING".
+    -   **Blockers:** Any items explicitly marked as blockers in the plan.
+    -   **Phases (total):** The total number of major phases.
+    -   **Tasks (total):** The total number of tasks.
+    -   **Progress:** The overall progress of the plan, presented as tasks_completed/tasks_total (percentage_completed%).

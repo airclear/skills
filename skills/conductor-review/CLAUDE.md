@@ -129,6 +129,15 @@ A: 审查后提供自动修复选项，应用修复后更新 `plan.md` 记录审
 
 ## 变更记录 (Changelog)
 
+### 2026-03-27
+
+- **Update to 0.4.1** - 同步 Conductor 0.4.1 的变更：
+  - Smart Chunking：大变更（>300 行）分块审查
+  - 审查修复的自动提交和 plan.md 更新
+  - Track Cleanup 选项：Archive/Delete/Skip
+  - 结构化 Review Report 格式
+  - review-protocol.md 完全重写以对齐 review.toml 0.4.1
+
 ### 2026-03-02
 
 - **Update to 0.3.1** - 同步 Conductor 0.3.1 的变更，包括大范围变更的 Smart Chunking、改进的 Decision 阶段和 Plan 更新逻辑。

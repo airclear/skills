@@ -1,28 +1,188 @@
 # Track Planning Protocol
 
-## 1. Initialization
-- **Project Context:** Read Product Definition, Tech Stack, and Workflow using the Resolution Protocol.
-- **Track Description:** Get from user if not provided.
-- **Infer Type:** Determine if it's a "Feature" or "Other" (Bug, Chore, etc.).
+## 1. Setup Check
 
-## 2. Interactive Specification (`spec.md`)
-- **Sequential Questions:** Ask 3-5 (Feature) or 2-3 (Other) context-aware questions.
-- **Question Types:** Additive (Select all that apply) or Exclusive Choice.
-- **Drafting:** Include Overview, Functional/Non-Functional Requirements, Acceptance Criteria, and Out of Scope.
-- **Confirmation:** Get user approval before proceeding.
+**PROTOCOL: Verify that the Conductor environment is properly set up.**
 
-## 3. Interactive Plan (`plan.md`)
-- **Generation:** Create a hierarchical list of Phases, Tasks, and Sub-tasks.
-- **Workflow Compliance:** Adhere to `workflow.md` (e.g., TDD tasks).
-- **Status Markers:** Use `[ ]` for all items.
-- **Phase Completion:** Append: `- [ ] Task: Conductor - User Manual Verification '<Phase Name>' (Protocol in workflow.md)` to each phase.
-- **Confirmation:** Get user approval.
+1.  **Verify Core Context:** Using the **Universal File Resolution Protocol**, resolve and verify the existence of:
+    -   **Product Definition**
+    -   **Tech Stack**
+    -   **Workflow**
 
-## 4. Artifact Creation
-1. **Duplicate Check:** Verify the track name doesn't already exist in the Tracks Directory.
-2. **Generate ID:** `shortname_YYYYMMDD`.
-3. **Directory:** Create `conductor/tracks/<track_id>/`.
-4. **Metadata:** Create `metadata.json` with current timestamp and status "new".
-5. **Write Files:** `spec.md`, `plan.md`, and `index.md`.
-6. **Registry Update:** Append the new track section to `conductor/tracks.md`.
-7. **Commit:** `git add conductor/tracks.md` and commit with `chore(conductor): Add new track '<description>'`.
+2.  **Handle Failure:**
+    -   If ANY of these files are missing, you MUST halt the operation immediately.
+    -   Announce: "Conductor is not set up. Please run `/conductor:setup` to set up the environment."
+    -   Do NOT proceed to New Track Initialization.
+
+---
+
+## 2. New Track Initialization
+
+**PROTOCOL: Follow this sequence precisely.**
+
+### 2.1 Get Track Description and Determine Type
+
+1.  **Load Project Context:** Read and understand the content of the project documents (**Product Definition**, **Tech Stack**, etc.) resolved via the **Universal File Resolution Protocol**.
+
+2.  **Get Track Description & Enter Plan Mode:**
+    *   **If `args` is empty:**
+        1. Call the `enter_plan_mode` tool with the reason: "Defining new track".
+        2. Ask the user using the `ask_user` tool (do not repeat the question in the chat):
+            - **header:** "Description"
+            - **type:** "text"
+            - **question:** "Please provide a brief description of the track (feature, bug fix, chore, etc.) you wish to start."
+            - **placeholder:** "e.g., Implement user authentication"
+        3. Await the user's response and use it as the track description.
+    *   **If `args` contains a description:**
+        1. Use the content of `args` as the track description.
+        2. Call the `enter_plan_mode` tool with the reason: "Defining new track".
+
+3.  **Infer Track Type:** Analyze the description to determine if it is a "Feature" or "Something Else" (e.g., Bug, Chore, Refactor). Do NOT ask the user to classify it.
+
+### 2.2 Interactive Specification Generation (`spec.md`)
+
+1.  **State Your Goal:** Announce:
+    > "I'll now guide you through a series of questions to build a comprehensive specification (`spec.md`) for this track."
+
+2.  **Questioning Phase:** Ask a series of questions to gather details for the `spec.md` using the `ask_user` tool. You must batch up to 4 related questions in a single tool call to streamline the process. Tailor questions based on the track type (Feature or Other).
+
+    *   **CRITICAL:** Wait for the user's response after each `ask_user` tool call.
+
+    *   **General Guidelines:**
+        *   Refer to information in **Product Definition**, **Tech Stack**, etc., to ask context-aware questions.
+        *   Provide a brief explanation and clear examples for each question.
+        *   **Strongly Recommended:** Whenever possible, present 2-3 plausible options for the user to choose from.
+
+    *   **Question Classification (MANDATORY):**
+
+        Before formulating any question, you MUST first classify its purpose:
+
+        *   **Additive** (`multiSelect: true`) — For brainstorming and defining scope (e.g., users, goals, features, project guidelines). These questions allow for multiple answers.
+        *   **Exclusive Choice** (`multiSelect: false`) — For foundational, singular commitments (e.g., selecting a primary technology, a specific workflow rule). These questions require a single answer.
+
+    *   **Question Structure:** Each question in the `questions` array MUST include:
+        - **header:** Very short label (max 16 chars).
+        - **type:** "choice", "text", or "yesno".
+        - **multiSelect:** (Required for type: "choice") Set to `true` for additive or `false` for exclusive choice.
+        - **options:** (Required for type: "choice") Provide 2-4 options, each with a `label` and `description`. Note that "Other" is automatically added.
+        - **placeholder:** (For type: "text") Provide a hint.
+
+    *   **Interaction Flow:**
+        *   Wait for the user's response after each `ask_user` tool call.
+        *   If the user selects "Other", use a subsequent `ask_user` tool call with `type: "text"` to get their input if necessary.
+        *   Confirm your understanding by summarizing before moving on to drafting.
+
+    *   **If FEATURE:**
+        *   **Ask 3-4 relevant questions** to clarify the feature request using the `ask_user` tool.
+        *   Examples include clarifying questions about the feature, how it should be implemented, interactions, inputs/outputs, etc.
+        *   Tailor the questions to the specific feature request (e.g., if the user didn't specify the UI, ask about it; if they didn't specify the logic, ask about it).
+
+    *   **If SOMETHING ELSE (Bug, Chore, etc.):**
+        *   **Ask 2-3 relevant questions** to obtain necessary details using the `ask_user` tool.
+        *   Examples include reproduction steps for bugs, specific scope for chores, or success criteria.
+        *   Tailor the questions to the specific request.
+
+3.  **Draft `spec.md`:** Once sufficient information is gathered, draft the content for the track's `spec.md` file, including sections like Overview, Functional Requirements, Non-Functional Requirements (if any), Acceptance Criteria, and Out of Scope.
+
+4.  **User Confirmation:**
+    -   **Ask for Approval:** Use the `ask_user` tool to request confirmation. You MUST embed the drafted content directly into the `question` field so the user can review it in context.
+        - **questions:**
+            - **header:** "Confirm Spec"
+            - **question:**
+                Please review the drafted Specification below. Does this accurately capture the requirements?
+
+                ---
+
+                <Insert Drafted spec.md Content Here>
+            - **type:** "choice"
+            - **multiSelect:** false
+            - **options:**
+                - Label: "Approve", Description: "The specification looks correct, proceed to planning."
+                - Label: "Revise", Description: "I want to make changes to the requirements."
+    - Await user feedback and revise the `spec.md` content until confirmed.
+
+### 2.3 Interactive Plan Generation (`plan.md`)
+
+1.  **State Your Goal:** Once `spec.md` is approved, announce:
+    > "Now I will create an implementation plan (plan.md) based on the specification."
+
+2.  **Generate Plan:**
+    *   Read the confirmed `spec.md` content for this track.
+    *   Resolve and read the **Workflow** file (via the **Universal File Resolution Protocol** using the project's index file).
+    *   Generate a `plan.md` with a hierarchical list of Phases, Tasks, and Sub-tasks.
+    *   **CRITICAL:** The plan structure MUST adhere to the methodology in the **Workflow** file (e.g., TDD tasks for "Write Tests" and "Implement").
+    *   Include status markers `[ ]` for **EVERY** task and sub-task. The format must be:
+        - Parent Task: `- [ ] Task: ...`
+        - Sub-task: `    - [ ] ...`
+    *   **CRITICAL: Inject Phase Completion Tasks.** Determine if a "Phase Completion Verification and Checkpointing Protocol" is defined in the **Workflow**. If this protocol exists, then for each **Phase** that you generate in `plan.md`, you MUST append a final meta-task to that phase. The format for this meta-task is: `- [ ] Task: Conductor - User Manual Verification '<Phase Name>' (Protocol in workflow.md)`.
+
+3.  **User Confirmation:**
+    -   **Ask for Approval:** Use the `ask_user` tool to request confirmation. You MUST embed the drafted content directly into the `question` field so the user can review it in context.
+        - **questions:**
+            - **header:** "Confirm Plan"
+            - **question:**
+                Please review the drafted Implementation Plan below. Does this look correct and cover all the necessary steps?
+
+                ---
+
+                <Insert Drafted plan.md Content Here>
+            - **type:** "choice"
+            - **multiSelect:** false
+            - **options:**
+                - Label: "Approve", Description: "The plan looks solid, proceed to implementation."
+                - Label: "Revise", Description: "I want to modify the implementation steps."
+    - Await user feedback and revise the `plan.md` content until confirmed.
+
+### 2.4 Create Track Artifacts and Update Registry
+
+1.  **Check for existing track name:** Before generating a new Track ID, resolve the **Tracks Directory** using the **Universal File Resolution Protocol**. List all existing track directories in that resolved path. Extract the short names from these track IDs (e.g., `shortname_YYYYMMDD` -> `shortname`). If the proposed short name for the new track (derived from the initial description) matches an existing short name, halt the `newTrack` creation. Explain that a track with that name already exists and suggest choosing a different name or resuming the existing track.
+
+2.  **Generate Track ID:** Create a unique Track ID (e.g., `shortname_YYYYMMDD`).
+
+3.  **Create Directory:** Create a new directory for the track: `<Tracks Directory>/<track_id>/`.
+
+4.  **Create `metadata.json`:** Create a metadata file at `<Tracks Directory>/<track_id>/metadata.json` with content like:
+    ```json
+    {
+      "track_id": "<track_id>",
+      "type": "feature",
+      "status": "new",
+      "created_at": "YYYY-MM-DDTHH:MM:SSZ",
+      "updated_at": "YYYY-MM-DDTHH:MM:SSZ",
+      "description": "<Initial user description>"
+    }
+    ```
+    *   Populate fields with actual values. Use the current timestamp. Adjust `type` to "feature", "bug", "chore", etc. as appropriate.
+
+5.  **Write Files:**
+    *   Write the confirmed specification content to `<Tracks Directory>/<track_id>/spec.md`.
+    *   Write the confirmed plan content to `<Tracks Directory>/<track_id>/plan.md`.
+    *   Write the index file to `<Tracks Directory>/<track_id>/index.md` with content:
+        ```markdown
+        # Track <track_id> Context
+
+        - [Specification](./spec.md)
+        - [Implementation Plan](./plan.md)
+        - [Metadata](./metadata.json)
+        ```
+
+6.  **Exit Plan Mode:** Call the `exit_plan_mode` tool with the path: `<Tracks Directory>/<track_id>/index.md`.
+
+7.  **Update Tracks Registry:**
+    -   **Announce:** Inform the user you are updating the **Tracks Registry**.
+    -   **Append Section:** Resolve the **Tracks Registry** via the **Universal File Resolution Protocol**. Append a new section for the track to the end of this file. The format MUST be:
+        ```markdown
+
+        ---
+
+        - [ ] **Track: <Track Description>**
+        *Link: [./<Relative Track Path>/](./<Relative Track Path>/)*
+        ```
+        (Replace `<Relative Track Path>` with the path to the track directory relative to the **Tracks Registry** file location.)
+
+8.  **Commit Code Changes:**
+    -   **Announce:** Inform the user you are committing the **Tracks Registry** changes.
+    -   **Commit Changes:** Stage the **Tracks Registry** files and commit with the message `chore(conductor): Add new track '<track_description>'`.
+
+9.  **Announce Completion:** Inform the user:
+    > "New track '<track_id>' has been created and added to the tracks file. You can now start implementation by running `/conductor:implement`."

@@ -113,6 +113,16 @@ A: 通过检查 `tracks.md` 中已注册的 Track ID，确保新 ID 不重复。
 
 ## 变更记录 (Changelog)
 
+### 2026-03-27
+
+- **Update to 0.4.1** - 同步 Conductor 0.4.1 的变更：
+  - 新增 Plan Mode Protocol：整个 newTrack 过程在 Plan Mode 下运行
+  - 改进问题分类（Additive vs Exclusive Choice）
+  - 细化 ask_user 工具使用规范（header, type, multiSelect, options, placeholder）
+  - Feature/Non-Feature 区分的针对性问题策略
+  - 新增 Self-Correction 和 Tool Call Validation 约束
+  - track-planning.md 完全重写以对齐 newTrack.toml 0.4.1
+
 ### 2026-03-02
 
 - **Update to 0.3.1** - 同步 Conductor 0.3.1 的变更，包括问题分批（batching）和阶段完成 meta-tasks。

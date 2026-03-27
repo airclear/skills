@@ -37,18 +37,19 @@ description: Reverts logical units of work by analyzing git history and synchron
 
 ## 关键依赖与配置
 
-### 工作流程
+### 工作流程（4 Phase）
 
-1. **Target Identification** - 交互式帮助用户选择要回滚的 Track、Phase 或 Task
-2. **Git Analysis** - 将 Conductor 工件映射到具体的 Git commit SHAs（实施和计划更新提交）
-3. **Plan Presentation** - 向用户展示将要以什么顺序回滚哪些提交
-4. **Safe Execution** - 执行回滚，处理冲突，并手动同步 Conductor 工件以匹配回滚后的代码状态
+1. **Phase 1: Interactive Target Selection & Confirmation** - 两条路径：Direct Confirmation (Path A) 或 Guided Selection Menu (Path B)；统一层级菜单，最多 4 个选项 + "Other"
+2. **Phase 2: Git Reconciliation & Verification** - 映射 Implementation Commits、Ghost Commits、Plan-Update Commits、Track Creation Commit（支持新旧 Track Registry 格式）
+3. **Phase 3: Final Execution Plan Confirmation** - 详细执行摘要，Approve/Revise 选择
+4. **Phase 4: Execution & Verification** - 按逆序执行 reverts，冲突处理，Plan 状态验证
 
 ### 强制性约束
 
 - **Double Confirmation** - 在运行 `git revert` 之前，始终确认目标选择和最终执行计划
 - **Reverse Order** - 回滚必须按时间倒序执行
 - **Plan Sync** - 最后一步必须验证 `plan.md` 或 `tracks.md` 反映回滚后的状态
+- **Tool Call Validation** - 每个工具调用必须验证成功，失败时立即停止并等待指令
 
 ---
 
@@ -108,6 +109,10 @@ A: 手动更新 `plan.md` 或 `tracks.md`，将相应任务或阶段标记为未
 ---
 
 ## 变更记录 (Changelog)
+
+### 2026-03-27
+
+- **Update to 0.4.1** - 同步 Conductor 0.4.1 的变更：重构为 4 Phase 工作流，改进 Target Selection（Direct/Guided 双路径），增强 Git Reconciliation（Ghost Commits、Plan-Update Commits、Track Creation Commit 新旧格式支持），增加 Execution Plan Approve/Revise 选择，增加 Tool Call Validation 约束。
 
 ### 2026-03-02
 
