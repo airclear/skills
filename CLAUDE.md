@@ -25,7 +25,8 @@ skills/
 │   ├── conductor-implement/       # 执行实施任务
 │   ├── conductor-status/          # 项目状态概览
 │   ├── conductor-revert/          # 回滚操作
-│   └── conductor-review/          # 代码审查
+│   ├── conductor-review/          # 代码审查
+│   └── vela-project-init/         # Vela AI 原生项目骨架初始化
 ├── references/                    # 参考资料 (conductor-release)
 │   └── conductor-release/         # 原始 Conductor 发布参考
 └── dist/                          # 构建输出目录
@@ -45,10 +46,11 @@ graph TD
     B --> F["conductor-status"];
     B --> G["conductor-revert"];
     B --> H["conductor-review"];
+    B --> I["vela-project-init"];
 
-    A --> I["spec"];
-    A --> J["references"];
-    A --> K["dist"];
+    A --> J["spec"];
+    A --> K["references"];
+    A --> L["dist"];
 
     click C "./skills/conductor-setup/CLAUDE.md" "查看 conductor-setup 模块文档"
     click D "./skills/conductor-newtrack/CLAUDE.md" "查看 conductor-newtrack 模块文档"
@@ -56,6 +58,7 @@ graph TD
     click F "./skills/conductor-status/CLAUDE.md" "查看 conductor-status 模块文档"
     click G "./skills/conductor-revert/CLAUDE.md" "查看 conductor-revert 模块文档"
     click H "./skills/conductor-review/CLAUDE.md" "查看 conductor-review 模块文档"
+    click I "./skills/vela-project-init/SKILL.md" "查看 vela-project-init 模块文档"
 ```
 
 ---
@@ -70,6 +73,7 @@ graph TD
 | conductor-status | `skills/conductor-status` | 聚合项目 Tracks Registry 信息，提供状态概览 |
 | conductor-revert | `skills/conductor-revert` | Git 感知回滚，同步 Conductor 文档 |
 | conductor-review | `skills/conductor-review` | 首席工程师视角的代码审查，检查规范合规性 |
+| vela-project-init | `skills/vela-project-init` | 天帆 Vela AI 原生产研平台项目骨架初始化，快速搭建符合 Vela AI-Native SDLC 规范的完整项目结构 |
 
 ---
 

@@ -32,6 +32,7 @@ skills/
 | `conductor-review` | Dev | 担任首席架构师角色，对代码与实现方案进行深度审查 (v0.3.1)。 |
 | `conductor-revert` | Dev | 智能撤销 Track/Phase/Task，并同步更新 Conductor 计划与文档 (v0.3.1)。 |
 | `conductor-upgrade` | Maintenance | 自动化同步 Conductor 技能套件至最新参考版本 (v0.3.1)。 |
+| `vela-project-init` | Dev | 天帆 (Vela) AI 原生产研平台项目初始化，快速搭建符合 Vela AI-Native SDLC 规范的完整项目骨架。 |
 
 
 ## 🔗 相关资源

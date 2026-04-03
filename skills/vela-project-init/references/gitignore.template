@@ -1,0 +1,45 @@
+# .gitignore
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Node / Frontend
+node_modules/
+dist/
+.pnpm-store/
+.yarn/cache/
+
+# Java / Backend
+target/
+*.class
+*.jar
+*.war
+
+# Logs
+*.log
+logs/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Build artifacts
+build/
+out/
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# AI tooling state (keep project memory, ignore runtime state)
+.omc/state/
+.omc/sessions/
+.claude/worktrees/
