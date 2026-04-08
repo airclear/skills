@@ -20,7 +20,7 @@ skills/
 
 | Skill 名称 | 分类 | 简介 |
 | :--- | :--- | :--- |
-| **BMad 系列** | | **基于 BMad Method (v6.0.4) 的 AI 工作流** |
+| **BMad 系列** | | **基于 BMad Method (v6.0.4) 的 AI 工作流**<br>⚠️ **备注：BMAD 官方已全面 Skill 化，建议优先参考 [BMAD-METHOD 官方仓库](https://github.com/bmad-code-org/BMAD-METHOD)** |
 | `bmad-core` | Creative | BMad 核心工具：头脑风暴 (BSP)、多代理协作 (Party Mode)、文档切片与审阅 (v6.0.4)。 |
 | `bmad-bmm` | Dev | 完整 SDLC 工作流 (BMM)：需求分析、PRD/UX 设计、架构定义、Sprint 故事开发 (v6.0.4)。 |
 | `bmad-tea` | QA | 企业级测试架构 (TEA)：测试设计、ATDD、自动化测试、CI 流水线、质量审计 (v6.0.4)。 |
