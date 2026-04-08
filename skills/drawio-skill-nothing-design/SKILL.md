@@ -1,5 +1,5 @@
 ---
-name: draw-skills-nothing-design
+name: drawio-skill-nothing-design
 description: This skill should be used when the user explicitly says "Nothing style", "Nothing design", "/nothing-design", or directly asks to use/apply the Nothing design system. NEVER trigger automatically for generic UI or design tasks. It provides guidance and templates for generating diagrams using the minimalist, industrial aesthetic of the Nothing design language.
 license: MIT
 ---

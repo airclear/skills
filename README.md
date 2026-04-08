@@ -36,7 +36,7 @@ skills/
 | `conductor-upgrade` | Maintenance | 自动化同步 Conductor 技能套件至最新参考版本 (v0.4.1)。 |
 | **设计与可视化** | | |
 | `drawio-skill` | Design | 使用 draw.io 桌面版 CLI 生成和导出高质量架构图、流程图，支持多种专业预设风格 (v1.1.0)。 |
-| `draw-skills-nothing-design` | Design | 专注于 Nothing 风格（极简工业风）的图表设计，提供单色、高对比度的专业设计。 |
+| `drawio-skills-nothing-design` | Design | 专注于 Nothing 风格（极简工业风）的图表设计，提供单色、高对比度的专业设计。 |
 | **项目与原型管理** | | |
 | `vela-project-init` | Dev | 天帆 (Vela) AI 原生产研平台项目初始化，快速搭建符合 Vela AI-Native SDLC 规范的完整项目骨架。 |
 | `tc-protohub` | Prototype | ProtoHub 原型管理工具：支持自动打包、上传、更新及预览 HTML 原型，集成入口文件校验。 |
