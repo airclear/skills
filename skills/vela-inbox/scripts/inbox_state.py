@@ -5,7 +5,7 @@
 输出 JSON，供 skill 直接使用。
 
 用法:
-  python inbox_state.py <product_dir>
+  python inbox_state.py <prd_dir>
 """
 import json
 import os

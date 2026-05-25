@@ -10,18 +10,18 @@ description: |
 
 # 天帆 Vela - 需求入库
 
-将需求快速录入 `product/01_inbox/`，自动分配编号、创建目录、生成 `requirement.md`、更新索引。
+将需求快速录入 `prd/01_inbox/`，自动分配编号、创建目录、生成 `requirement.md`、更新索引。
 
 ## 执行流程
 
-### 第一步：定位 product 目录
+### 第一步：定位 prd 目录
 
-在当前工作目录中找 `product/01_inbox/`。如果找不到，询问用户路径。
+在当前工作目录中找 `prd/01_inbox/`。如果找不到，询问用户路径。
 
 ### 第二步：快速获取现状（用脚本，不要手动读文件）
 
 ```bash
-python3 {SKILL_DIR}/scripts/inbox_state.py {PRODUCT_DIR}
+python3 {SKILL_DIR}/scripts/inbox_state.py {PRD_DIR}
 ```
 
 输出 JSON，包含 `next_id_str`（下一个编号）和 `entries`（现有条目列表）。
@@ -57,7 +57,7 @@ python3 {SKILL_DIR}/scripts/inbox_state.py {PRODUCT_DIR}
 
 ```bash
 python3 {SKILL_DIR}/scripts/create_entry.py \
-  "{PRODUCT_DIR}" \
+  "{PRD_DIR}" \
   "{ID_STR}" \
   "{SOURCE_TYPE}" \
   "{SHORT_DESC}" \
@@ -104,6 +104,12 @@ python3 {SKILL_DIR}/scripts/create_entry.py \
 - 创建的目录名（如 `010_tech_wechat-notification`）
 - 分配的编号
 - 下一步建议（如需要精炼为 PRD，可运行 `/prd-development`）
+- 需求完结后归档操作提示：
+  ```bash
+  mv prd/01_inbox/010_xxx/  prd/archive/inbox/
+  mv prd/02_prd/P010_xxx/   prd/archive/prd/    # 如已有对应 PRD
+  # 并在 prd/01_inbox/index.md 中将状态改为"已归档"
+  ```
 
 ## 注意事项
 

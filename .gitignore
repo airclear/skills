@@ -23,6 +23,19 @@ env/
 .env
 .env.*
 
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+*.egg
+pip-wheel-metadata/
+
 # Build and Output
 dist/
 build/

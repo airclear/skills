@@ -183,8 +183,11 @@ pnpm install && pnpm dev
 │   └── specs/           # SDD 技术规格
 ├── prd/                # 需求大脑
 │   ├── 00_vision/      # 产品愿景与路线图
-│   ├── 01_inbox/       # 原始需求池
+│   ├── 01_inbox/       # 原始需求池（唯一入口，含状态看板）
 │   ├── 02_prd/         # 正式 PRD 文档
+│   ├── archive/        # 已完结归档
+│   │   ├── inbox/
+│   │   └── prd/
 │   └── prototype/      # UI 原型
 ├── src/                # 源码实现
 {src_list}
@@ -211,23 +214,33 @@ pnpm install && pnpm dev
 ```
 prd/
 ├── 00_vision/          # 全局设定（愿景、路线图）
-├── 01_inbox/           # 原始需求池
-│   └── index.md        # 需求索引
+├── 01_inbox/           # 原始需求池（唯一入口，含状态看板）
+│   └── index.md        # 需求索引（含 PRD 链接列）
 ├── 02_prd/             # 已精炼的 PRD
 │   └── index.md        # PRD 索引
+├── archive/            # 已完结归档
+│   ├── inbox/          # 归档的原始需求
+│   └── prd/            # 归档的 PRD
 └── prototype/          # UI 原型（按前端分组）
 ```
 
 ## 需求流转
 
 ```
-01_inbox → 02_prd → .vela/specs/ → plan.md → src/
+01_inbox → 02_prd → .vela/specs/ → plan.md → src/ → archive/
 ```
 
 ## 命名规范
 
 - **Inbox**: `[三位编号]_[来源]_[描述]`，如 `001_market_auth`
 - **PRD**: `P[三位编号]_[特性]`，如 `P001_user_onboarding`
+
+## 归档规范
+
+需求完结后同步操作：
+1. `mv prd/01_inbox/001_xxx/  prd/archive/inbox/`
+2. `mv prd/02_prd/P001_xxx/   prd/archive/prd/`
+3. 在 `01_inbox/index.md` 中将状态改为"已归档"
 """,
 
 "prd/00_vision/vision.md": """\
@@ -276,6 +289,8 @@ prd/
 "prd/01_inbox/index.md": """\
 # 01_inbox - 原始需求池
 
+> 所有需求的唯一入口，在此维护需求全生命周期状态。
+
 ## 需求索引
 
 | ID | 目录 | 标题 | 来源 | 状态 | PRD |
@@ -286,7 +301,8 @@ prd/
 
 - **待分析**: 原始需求，尚未分析
 - **分析中**: 正在调研与设计
-- **已转化为PRD**: 已进入 `02_prd/`
+- **已转化为PRD**: 已生成 PRD，见 `02_prd/`（PRD 列填写链接）
+- **已归档**: 已完结，移入 `archive/`
 - **已拒绝**: 需求被否决，保留记录
 
 ## 录入规范
@@ -295,6 +311,7 @@ prd/
 2. 必含文件: `requirement.md`
 3. 附件目录: `_resources/`
 4. 录入后更新本索引
+5. 需求完结后：将目录移至 `archive/inbox/`，状态改为"已归档"
 """,
 
 "prd/02_prd/index.md": """\
@@ -304,11 +321,39 @@ prd/
 
 | ID | 目录 | 标题 | 状态 | 关联 Inbox |
 |----|------|------|------|-----------|
-| - | - | - | - | - | - |
+| - | - | - | - | - |
 
-## 状态: 草稿 → 评审中 → 已批准 → 开发中 → 已发布
+## 状态: 草稿 → 评审中 → 已批准 → 开发中 → 已发布 → 已归档
 
 ## 命名规范: `P[三位编号]_[特性]`，如 `P001_user_auth`
+
+## 归档说明
+
+需求完结后，将对应目录移至 `archive/prd/`，并在 `01_inbox/index.md` 中将状态更新为"已归档"。
+""",
+
+"prd/archive/README.md": """\
+# archive - 已完结需求归档
+
+存放已完结（已发布或已关闭）的需求与 PRD，保持 `01_inbox/` 和 `02_prd/` 目录清爽。
+
+## 目录结构
+
+```
+archive/
+├── inbox/    # 已归档的原始需求（从 01_inbox/ 移入）
+└── prd/      # 已归档的 PRD（从 02_prd/ 移入）
+```
+
+## 归档操作
+
+```bash
+# 归档一条需求（inbox + prd 同步操作）
+mv prd/01_inbox/001_xxx/  prd/archive/inbox/001_xxx/
+mv prd/02_prd/P001_xxx/   prd/archive/prd/P001_xxx/
+```
+
+归档后在 `01_inbox/index.md` 中将对应行状态改为"已归档"。
 """,
 
 ".vela/specs/README.md": """\
@@ -521,6 +566,8 @@ def main():
         "prd/00_vision",
         "prd/01_inbox",
         "prd/02_prd",
+        "prd/archive/inbox",
+        "prd/archive/prd",
         "prd/prototype",
         "tests/e2e",
         "tests/reports",
@@ -575,8 +622,9 @@ def main():
 │   └── specs/            ← SDD 技术规格（需求 → 代码的关键桥梁）
 ├── prd/                 ← 需求大脑
 │   ├── 00_vision/
-│   ├── 01_inbox/         ← 含 _example/ 示例需求
-│   ├── 02_prd/           ← 含 _example/ 示例 PRD
+│   ├── 01_inbox/         ← 唯一入口 + 状态看板（含 _example/）
+│   ├── 02_prd/           ← 正式 PRD（含 _example/）
+│   ├── archive/          ← 完结归档（inbox/ + prd/）
 │   └── prototype/
 ├── src/                 ← 源码实现
 {chr(10).join(f"│   ├── {fe}/" for fe in frontends)}{"" if not frontends else ""}

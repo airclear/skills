@@ -24,8 +24,11 @@ description: |
 │   └── specs/              # SDD 技术规格（Spec-Driven Development）
 ├── prd/                    # 需求大脑
 │   ├── 00_vision/          # 产品愿景与路线图
-│   ├── 01_inbox/           # 原始需求池
+│   ├── 01_inbox/           # 原始需求池（唯一入口，含状态看板）
 │   ├── 02_prd/             # 正式 PRD 文档
+│   ├── archive/            # 已完结归档
+│   │   ├── inbox/          # 归档的原始需求
+│   │   └── prd/            # 归档的 PRD
 │   └── prototype/          # UI 原型（按前端分组）
 ├── src/                    # 源码实现层
 │   ├── frontend-{name}/    # 前端应用（按角色，可多个）

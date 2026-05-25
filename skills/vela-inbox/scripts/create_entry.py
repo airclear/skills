@@ -4,10 +4,10 @@
 创建 inbox 条目：目录 + requirement.md + 更新 index.md
 
 用法:
-  python create_entry.py <product_dir> <id_str> <source_type> <short_desc> <title> <source_team> [<original_file>]
+  python create_entry.py <prd_dir> <id_str> <source_type> <short_desc> <title> <source_team> [<original_file>]
 
 参数:
-  product_dir   - product/ 目录的绝对路径
+  prd_dir       - prd/ 目录的绝对路径
   id_str        - 三位编号，如 010
   source_type   - 来源类型标签，如 market / tech / ops / customer / security
   short_desc    - 目录名后缀，英文短横线分隔，如 wechat-notification
