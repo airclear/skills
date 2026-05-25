@@ -83,16 +83,19 @@ coverage/
 
 ```text
 /
-├── .vela/              # Vela 平台配置与 AI 协作上下文
+├── .vela/              # Vela 平台配置（AI 协作上下文、SDD 规格）
 ├── prd/                # 产品管理大脑 (AI-Native SDLC 需求入口)
 ├── src/                # 源码实现层
 │   ├── frontend-*/     # 前端应用（按角色分离）
 │   └── backend/        # 后端服务
-├── test/               # 质量保障层
-├── ops/                # 运维部署层
+├── tests/              # 质量保障层
+├── sre/                # 运维部署层
 ├── changelog/          # 变更记录
 └── docs/               # 项目文档（架构、技术设计）
 ```
+
+---
+**核心工作流**: `01_inbox → 02_prd → .vela/specs/ → plan.md → src/`
 
 ---
 
@@ -113,7 +116,7 @@ pnpm install && pnpm dev
 
 - **核心指引**: `.vela/PROJECT_GUIDE.md`
 - **需求入口**: `prd/01_inbox/index.md`
-- **任务管理**: 使用 `/conductor-setup` 初始化后见 `.vela/conductor/`
+- **任务管理**: 使用 AI Skills 管理研发任务
 - **代码规范**: `.vela/code_styleguides/`
 
 ---
@@ -132,17 +135,22 @@ pnpm install && pnpm dev
 |------|------|
 | `prd/` | 需求大脑：Inbox → PRD 全生命周期 |
 | `src/` | 研发实现：前端 + 后端代码 |
-| `test/` | 质量保障：测试策略与执行 |
-| `ops/` | 运维部署：IaC、CI/CD |
+| `tests/` | 质量保障：测试策略与执行 |
+| `sre/` | 运维部署：IaC、CI/CD |
 | `.vela/` | 平台上下文：AI 协作配置 |
 
 ## AI 协作工作流
 
-1. **需求录入** → `prd/01_inbox/` 创建目录 + 更新 `index.md`
-2. **需求精炼** → AI PM 生成 PRD 到 `prd/02_prd/`
-3. **任务分发** → `/conductor-setup` 初始化后用 `/conductor-newtrack` 创建 Track
-4. **研发实现** → 按 Track `plan.md` 执行，TDD 流程
-5. **验证部署** → `test/` 验证，`ops/` 推送
+```
+01_inbox → 02_prd → .vela/specs/ → plan.md → src/
+(需求录入)  (需求精炼)  (SDD技术规格)  (实施计划)  (研发实现)
+```
+
+1. **需求录入** → `prd/01_inbox/` 创建需求目录，参考 `_example/` 格式
+2. **需求精炼** → AI PM 评审后生成 PRD 到 `prd/02_prd/`
+3. **SDD 规格** → 技术规格写入 `.vela/specs/`，细化到可实现的颗粒度
+4. **实施计划** → 基于 Specs 生成 `plan.md`，拆分为可执行步骤
+5. **研发实现** → TDD 流程，`tests/` 验证 → `sre/` 部署
 
 ## 开发规范
 
@@ -151,10 +159,9 @@ pnpm install && pnpm dev
 - **技术栈变更**: 先更新 `.vela/tech-stack.md`，再动代码
 - **语言**: 项目文档默认中文
 
-## Conductor 任务管理
+## AI 协作任务管理
 
-> 本项目使用 Conductor skill 管理研发任务。
-> 在项目目录中运行 `/conductor-setup` 完成初始化。
+> 本项目使用 AI Skills 管理研发任务，任务状态与执行计划随代码一起版本管理。
 """,
 
 ".vela/AGENTS.md": """\
@@ -173,7 +180,7 @@ pnpm install && pnpm dev
 ├── .vela/              # Vela 平台配置（本目录）
 │   ├── AGENTS.md       # 本文件（AI Agent 入口）
 │   ├── PROJECT_GUIDE.md
-│   └── conductor/      # Conductor 任务管理（/conductor-setup 初始化）
+│   └── specs/           # SDD 技术规格
 ├── prd/                # 需求大脑
 │   ├── 00_vision/      # 产品愿景与路线图
 │   ├── 01_inbox/       # 原始需求池
@@ -181,8 +188,8 @@ pnpm install && pnpm dev
 │   └── prototype/      # UI 原型
 ├── src/                # 源码实现
 {src_list}
-├── test/               # 测试
-├── ops/                # 运维部署
+├── tests/              # 测试
+├── sre/                # 运维部署
 ├── changelog/          # 变更记录
 └── docs/               # 文档
 ```
@@ -214,7 +221,7 @@ prd/
 ## 需求流转
 
 ```
-01_inbox → 分析评审 → 02_prd → Conductor Track → 研发实现
+01_inbox → 02_prd → .vela/specs/ → plan.md → src/
 ```
 
 ## 命名规范
@@ -295,8 +302,8 @@ prd/
 
 ## PRD 索引
 
-| ID | 目录 | 标题 | 状态 | 关联 Inbox | 关联 Track |
-|----|------|------|------|-----------|-----------|
+| ID | 目录 | 标题 | 状态 | 关联 Inbox |
+|----|------|------|------|-----------|
 | - | - | - | - | - | - |
 
 ## 状态: 草稿 → 评审中 → 已批准 → 开发中 → 已发布
@@ -304,40 +311,111 @@ prd/
 ## 命名规范: `P[三位编号]_[特性]`，如 `P001_user_auth`
 """,
 
-".vela/conductor/README.md": """\
-# Conductor 任务管理
+".vela/specs/README.md": """\
+# SDD 技术规格 (Spec-Driven Development)
 
-本目录由 **Conductor Skill** 管理，用于跟踪所有工作单元（Track）的状态与执行计划。
+将 PRD 转化为可实现的技术规格，确保研发有明确的技术输入。
 
-## 初始化
+## 规格文件命名
 
-在项目根目录运行：
+`{feature-name}.md`，如 `user-auth.md`、`payment-flow.md`
 
-```
-/conductor-setup
-```
+## 规格文档模板
 
-Conductor 会在此目录下自动创建完整的 Track 管理结构。
+每个 Spec 文件应包含：
 
-## 相关命令
+1. **概述** — 一句话描述本规格覆盖的功能范围
+2. **技术方案** — 架构设计、技术选型决策
+3. **接口定义** — API 端点、数据模型、协议
+4. **关键流程** — 核心业务逻辑的伪代码或流程图描述
+5. **边界条件** — 异常处理、降级策略、性能指标
+6. **测试要点** — 关键测试场景与验收标准
 
-| 命令 | 说明 |
-|------|------|
-| `/conductor-setup` | 初始化 Conductor（首次使用） |
-| `/conductor-newtrack` | 创建新的工作单元 (Track) |
-| `/conductor-status` | 查看当前项目状态 |
-| `/conductor-implement` | 执行 Track 中定义的任务 |
-| `/conductor-review` | 审查已完成的工作 |
-| `/conductor-revert` | 回滚逻辑工作单元 |
+## 示例
+
+参见 `prd/02_prd/_example/` 中从 PRD 到 Spec 的对照示例。
 """,
 
-"test/README.md": """\
+"prd/01_inbox/_example/requirement.md": """\
+# 示例需求: 用户身份认证
+
+## 需求来源
+
+- **提出人**: 产品团队
+- **日期**: {year}-{month}
+- **优先级**: P0 (核心)
+
+## 需求描述
+
+用户需要通过邮箱+密码方式注册并登录系统，支持密码重置。
+
+## 目标用户
+
+所有使用本产品的终端用户。
+
+## 预期效果
+
+- 用户可自主注册账号
+- 登录后访问受保护资源
+- 忘记密码时可自助重置
+
+## 验收标准
+
+1. 新用户填写邮箱、密码后可成功注册
+2. 已注册用户使用正确凭据可登录
+3. 错误凭据显示友好提示，不暴露具体原因
+4. 密码重置邮件 5 分钟内送达
+
+## 附件
+
+> 相关截图、文档等放入 `_resources/` 目录
+""",
+
+"prd/02_prd/_example/prd.md": """\
+# P000: 用户身份认证 PRD (示例)
+
+> 状态: 示例 | 关联 Inbox: `_example/`
+
+## 背景
+
+用户身份认证是所有业务功能的前置条件，需在第一阶段完成。
+
+## 用户故事
+
+- 作为新用户，我希望通过邮箱注册账号，以便使用产品功能
+- 作为已注册用户，我希望登录系统，以便访问个人数据
+- 作为忘记密码的用户，我希望重置密码，以便恢复账号访问
+
+## 功能范围
+
+### 本期包含
+- 邮箱 + 密码注册
+- 登录 / 登出
+- 密码重置（邮件验证码）
+- Session 管理
+
+### 后续规划
+- OAuth 第三方登录
+- MFA 多因素认证
+
+## 技术约束
+
+- 密码加密: bcrypt
+- Session: JWT (Access + Refresh Token)
+- 邮件服务: 待定
+
+## 验收标准
+
+见 `.vela/specs/user-auth.md` 对应技术规格。
+""",
+
+"tests/README.md": """\
 # 质量保障层 (Testing)
 
 ## 目录结构
 
 ```
-test/
+tests/
 ├── e2e/        # 端到端测试
 ├── unit/       # 单元测试（各模块自带，此处放跨模块）
 └── reports/    # 测试报告
@@ -353,7 +431,7 @@ test/
 "docs/release-artifacts/AGENTS.md": """\
 # Release Artifacts 管理规范
 
-每个 Track 交付时，需在此目录记录发布物，确保变更材料可追溯。
+每次交付时，需在此目录记录发布物，确保变更材料可追溯。
 
 ## 目录结构
 
@@ -439,14 +517,14 @@ def main():
 
     # ── 1. 创建目录 ──────────────────────────────────────────────
     dirs = [
-        ".vela/conductor",
+        ".vela/specs",
         "prd/00_vision",
         "prd/01_inbox",
         "prd/02_prd",
         "prd/prototype",
-        "test/e2e",
-        "test/reports",
-        "ops",
+        "tests/e2e",
+        "tests/reports",
+        "sre",
         "changelog",
         "docs/architecture",
         "docs/api",
@@ -493,25 +571,27 @@ def main():
 ✅ 初始化完成！
 
 {root}/
-├── .vela/               ← Vela 平台配置（AGENTS.md、PROJECT_GUIDE.md 等）
-│   └── conductor/       ← 运行 /conductor-setup 完成初始化
+├── .vela/               ← Vela 平台配置（AGENTS.md、specs/ 等）
+│   └── specs/            ← SDD 技术规格（需求 → 代码的关键桥梁）
 ├── prd/                 ← 需求大脑
 │   ├── 00_vision/
-│   ├── 01_inbox/
-│   ├── 02_prd/
+│   ├── 01_inbox/         ← 含 _example/ 示例需求
+│   ├── 02_prd/           ← 含 _example/ 示例 PRD
 │   └── prototype/
 ├── src/                 ← 源码实现
 {chr(10).join(f"│   ├── {fe}/" for fe in frontends)}{"" if not frontends else ""}
 │   └── backend/
-├── test/
-├── ops/
+├── tests/
+├── sre/
 ├── changelog/
 └── docs/
 
+核心工作流: 01_inbox → 02_prd → .vela/specs/ → plan.md → src/
+
 下一步建议：
   1. 填写 prd/00_vision/vision.md（产品愿景）
-  2. 运行 /conductor-setup 初始化任务管理
-  3. 运行 /conductor-newtrack 创建第一个 Track
+  2. 参照 prd/01_inbox/_example/ 格式录入需求
+  3. 需求评审后生成 PRD 和 `.vela/specs/` 技术规格
 """)
 
 
