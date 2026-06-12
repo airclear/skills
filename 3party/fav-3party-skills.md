@@ -9,3 +9,5 @@
 - [markdown-viewer-skills](https://github.com/markdown-viewer/skills)
 
 - [fireworks-tech-graph](https://github.com/yizhiyanhua-ai/fireworks-tech-graph)
+
+- [brainstorm-alt](https://github.com/wishworldbetter/seedex-skills) spark
